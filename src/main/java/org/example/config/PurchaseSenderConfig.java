@@ -2,6 +2,7 @@ package org.example.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.IntegerSerializer;
+import org.example.dto.PaymentOrder;
 import org.example.dto.PurchaseReceipt;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,12 +22,22 @@ public class PurchaseSenderConfig {
     private String bootstrapServersConfig;
 
     @Bean
-    public KafkaTemplate<Integer, PurchaseReceipt> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+    public KafkaTemplate<Integer, PurchaseReceipt> purchaseTemplate() {
+        return new KafkaTemplate<>(producerPurchaseReceiptFactory());
     }
 
     @Bean
-    public ProducerFactory<Integer, PurchaseReceipt> producerFactory() {
+    public KafkaTemplate<Integer, PaymentOrder> paymentTemplate() {
+        return new KafkaTemplate<>(producerPaymentOrderFactory());
+    }
+
+    @Bean
+    public ProducerFactory<Integer, PurchaseReceipt> producerPurchaseReceiptFactory() {
+        return new DefaultKafkaProducerFactory<>(producerConfigs());
+    }
+
+    @Bean
+    public ProducerFactory<Integer, PaymentOrder> producerPaymentOrderFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 

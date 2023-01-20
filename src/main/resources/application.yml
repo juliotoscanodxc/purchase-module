@@ -10,4 +10,7 @@ spring:
       topic: purchase-order-topic
       group-id: purchase-listener-group
     producer:
-      topic: purchase-receipt-topic
+      payment:
+        topic: payment-order-topic
+      purchase:
+        topic: purchase-receipt-topic

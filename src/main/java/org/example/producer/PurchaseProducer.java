@@ -17,7 +17,7 @@ import java.util.Random;
 @Slf4j
 public class PurchaseProducer {
 
-    @Value(value = "${spring.kafka.producer.topic}")
+    @Value(value = "${spring.kafka.producer.purchase.topic}")
     private String topic;
 
     @Autowired
